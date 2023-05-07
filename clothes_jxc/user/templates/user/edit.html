@@ -1,0 +1,52 @@
+{% extends 'base1.html' %}
+{% block title %}编辑用户{% endblock %}
+{% block content %}
+    <div class="container" style="height: 600px">
+        <div class="col-md-4 col-md-offset-4">
+            <form class='form-user' action="{% url 'user:update' user_id %}" method="post">
+
+                {% if msg %}
+                    <div class="alert alert-warning">{{ msg }}</div>
+                {% endif %}
+
+                {% csrf_token %}
+
+                <h2 class="text-center">修改用户</h2>
+                <div class="form-group">
+                    {{ user_form.id.label_tag }}
+                    {{ user_form.id }}
+                    {{ user_form.id.errors }}
+                </div>
+                <div class="form-group">
+                    {{ user_form.username.label_tag }}
+                    {{ user_form.username }}
+                    {{ user_form.username.errors }}
+                </div>
+                <div class="form-group">
+                    {{ user_form.password.label_tag }}
+                    {{ user_form.password }}
+                    {{ user_form.password.errors }}
+                </div>
+                <div class="form-group">
+                    {{ user_form.name.label_tag }}
+                    {{ user_form.name }}
+                    {{ user_form.name.errors }}
+                </div>
+                <div class="form-group">
+                    {{ user_form.role.label_tag }}
+                    {{ user_form.role }}
+                    {{ user_form.role.errors }}
+                </div>
+                <div class="form-group">
+                    {{ user_form.create_time.label_tag }}
+                    {{ user_form.create_time }}
+                    {{ user_form.create_time.errors }}
+                </div>
+
+                <button type="reset" class="btn btn-default pull-left">重置</button>
+                <button type="submit" class="btn btn-primary pull-right">保存</button>
+
+            </form>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}

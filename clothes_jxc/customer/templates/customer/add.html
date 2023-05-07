@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}添加客户{% endblock %}
+{% block content %}
+    <div class="container" style="height: 600px">
+        <div class="col-md-4 col-md-offset-4">
+            <form class='form-customer' action="{% url 'customer:add' %}" method="post">
+
+                {% if msg %}
+                    <div class="alert alert-warning">{{ msg }}</div>
+                {% endif %}
+
+                {% csrf_token %}
+
+                <h2 class="text-center">添加客户</h2>
+                <div class="form-group">
+                    {{ customer_form.name.label_tag }}
+                    {{ customer_form.name }}
+                    {{ customer_form.name.errors }}
+
+                </div>
+                <div class="form-group">
+                    {{ customer_form.phone.label_tag }}
+                    {{ customer_form.phone }}
+                    {{ customer_form.phone.errors }}
+                </div>
+                <div class="form-group">
+                    {{ customer_form.address.label_tag }}
+                    {{ customer_form.address }}
+                    {{ customer_form.address.errors }}
+                </div>
+
+                <button type="reset" class="btn btn-default pull-left">重置</button>
+                <button type="submit" class="btn btn-primary pull-right">添加</button>
+
+            </form>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}

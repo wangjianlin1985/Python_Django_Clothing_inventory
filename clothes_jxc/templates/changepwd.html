@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}修改客户{% endblock %}
+{% block content %}
+    <div class="container" style="height: 600px">
+        <div class="col-md-4 col-md-offset-4">
+            <form class='form-user' action="{% url 'changepwd' %}" method="post">
+
+                {% if msg %}
+                    <div class="alert alert-warning">{{ msg }}</div>
+                {% endif %}
+
+                {% csrf_token %}
+
+                <h2 class="text-center">修改密码</h2>
+                <div class="form-group">
+                    {{ changepwd_form.password_now.label_tag }}
+                    {{ changepwd_form.password_now }}
+                    {{ changepwd_form.password_now.errors }}
+                </div>
+                <div class="form-group">
+                    {{ changepwd_form.password1.label_tag }}
+                    {{ changepwd_form.password1 }}
+                    {{ changepwd_form.password1.errors }}
+                </div>
+                <div class="form-group">
+                    {{ changepwd_form.password2.label_tag }}
+                    {{ changepwd_form.password2 }}
+                    {{ changepwd_form.password2.errors }}
+                </div>
+                <div class="form-group">
+                    {{ changepwd_form.captcha.label_tag }}
+                    {{ changepwd_form.captcha }}
+                    {{ changepwd_form.captcha.errors }}
+
+                </div>
+                <button type="reset" class="btn btn-default pull-left">重置</button>
+                <button type="submit" class="btn btn-primary pull-right">保存</button>
+
+            </form>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}

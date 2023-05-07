@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block title %}服装管理{% endblock %}
+{% block content %}
+    <div id="content" style="height: 600px">
+        <div id="search" class="text-center">
+            <form class="form-inline" action="{% url 'clothes:search' %} " method="post">
+                <div class="form-group ">
+                    <a class="btn btn-info" href="{% url 'clothes:add' %}">添加</a>
+                </div>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" placeholder="输入ID查询" style="width: 100px">
+                </div>
+                <div class="form-group">
+                    <label for="name">服装名</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="输入服装名查询"
+                           style="width: 110px">
+                </div>
+                <div class="form-group">
+                    <label for="sn">服装编号</label>
+                    <input type="text" class="form-control" id="sn" name="sn" placeholder="输入服装编号查询"
+                           style="width: 110px">
+                </div>
+                <div class="form-group">
+                    <label for="price">价格</label>
+                    <input type="text" class="form-control" id="min" name="min" placeholder="最小价格" style="width: 100px">--
+                    <input type="text" class="form-control" id="max" name="max" placeholder="最大价格" style="width: 100px">
+                </div>
+                <div class="form-group">
+                    <label for="size">尺寸</label>
+                    <select id="size" name="size" class="form-control">
+                        <option style='display: none'></option>
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                        <option>XL</option>
+                        <option>XXL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="color">颜色</label>
+                    <input type="text" class="form-control" id="color" name="color" placeholder="输入颜色查询"
+                           style="width: 110px">
+                </div>
+                <button type="submit" class="btn btn-success">查询</button>
+            </form>
+        </div>
+        <br>
+        <div id="table" align="center">
+            {% if result %}
+                <table class="table table-striped table-bordered table-hover  table-condensed" style="width: 1100px">
+                <tr class="success">
+                    <td>ID</td>
+                    <td>服装名</td>
+                    <td>服装号</td>
+                    <td>价格</td>
+                    <td>尺寸</td>
+                    <td>颜色</td>
+                    <td>库存</td>
+                    <td>描述</td>
+                    <td>创建时间</td>
+                    <td>修改时间</td>
+                    <td>编辑</td>
+                    <td>删除</td>
+                </tr>
+                {% for foo in result %}
+                    <tr>
+                        <td>{{ foo.id }}</td>
+                        <td>{{ foo.name }}</td>
+                        <td>{{ foo.sn }}</td>
+                        <td>{{ foo.price }}</td>
+                        <td>{{ foo.size }}</td>
+                        <td>{{ foo.color }}</td>
+                        {% if foo.stock > 10 %}
+                            <td style="color: green">{{ foo.stock }}</td>
+                        {% else %}
+                            <td class="danger" style="color: red">{{ foo.stock }}</td>
+                        {% endif %}
+                        <td>{{ foo.desc }}</td>
+                        <td>{{ foo.create_time }}</td>
+                        <td>{{ foo.modify_time }}</td>
+                        <td><a class="btn btn-primary btn-sm" href="{% url 'clothes:update' foo.id %}">编辑</a></td>
+                        <td><a class="btn btn-danger btn-sm" href="{% url 'clothes:delete' foo.id %}">删除</a></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <p>没有任何服装</p>
+            {% endif %}
+            </table>
+        </div>
+        <div class="text-center">
+            <ul class="pagination">
+                <li><a href="/clothes/?page=1" rel="external nofollow">首页</a></li>
+                {% if result.has_previous %}
+                    <li><a href="/clothes/?page={{ result.previous_page_number }}" rel="external nofollow">上一页</a></li>
+                {% endif %}
+                {% for num in result.paginator.page_range %}
+                    <li><a href="/clothes/?page={{ num }}" rel="external nofollow">{{ num }}</a></li>
+                {% endfor %}
+                {% if result.has_next %}
+                    <li><a href="/clothes/?page={{ result.next_page_number }}" rel="external nofollow">下一页</a></li>
+                {% endif %}
+                <li><a href="/clothes/?page={{ result.paginator.num_pages }}" rel="external nofollow">尾页</a></li>
+            </ul>
+        </div>
+        <!-- 分页结束 -->
+    </div>
+{% endblock %}

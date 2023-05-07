@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}用户服装{% endblock %}
+{% block content %}
+    <div class="container" style="height: auto">
+        <div class="col-md-4 col-md-offset-4">
+            <form class='form-user' action="{% url 'clothes:update' clothes_id %}" method="post">
+
+                {% if msg %}
+                    <div class="alert alert-warning">{{ msg }}</div>
+                {% endif %}
+
+                {% csrf_token %}
+
+                <h2 class="text-center">修改服装</h2>
+                <div class="form-group">
+                    {{ clothes_form.id.label_tag }}
+                    {{ clothes_form.id }}
+                    {{ clothes_form.id.errors }}
+                </div>
+                <div class="form-group">
+                    {{ clothes_form.name.label_tag }}
+                    {{ clothes_form.name }}
+                    {{ clothes_form.name.errors }}
+                </div>
+                <div class="form-group">
+                    {{ clothes_form.sn.label_tag }}
+                    {{ clothes_form.sn }}
+                    {{ clothes_form.sn.errors }}
+                </div>
+                <div class="form-group">
+                    {{ clothes_form.price.label_tag }}
+                    {{ clothes_form.price }}
+                    {{ clothes_form.price.errors }}
+                </div>
+                <div class="form-group">
+                    {{ clothes_form.size.label_tag }}
+                    {{ clothes_form.size }}
+                    {{ clothes_form.size.errors }}
+                </div>
+                <div class="form-group">
+                    {{ clothes_form.color.label_tag }}
+                    {{ clothes_form.color }}
+                    {{ clothes_form.color.errors }}
+                </div>
+                <div class="form-group">
+                    {{ clothes_form.stock.label_tag }}
+                    {{ clothes_form.stock }}
+                    {{ clothes_form.stock.errors }}
+                </div>
+                <div class="form-group">
+                    {{ clothes_form.desc.label_tag }}
+                    {{ clothes_form.desc }}
+                    {{ clothes_form.desc.errors }}
+                </div>
+
+                <button type="reset" class="btn btn-default pull-left">重置</button>
+                <button type="submit" class="btn btn-primary pull-right">保存</button>
+
+            </form>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}

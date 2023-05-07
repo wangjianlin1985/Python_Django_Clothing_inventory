@@ -1,0 +1,31 @@
+{% extends 'base2.html' %}
+{% block title %}主页{% endblock %}
+{% block content %}
+    <div class="container text-center" style="height: 600px">
+        {% if request.session.is_login %}
+            <h1>你好,{{ request.session.user_role }}：{{ request.session.user_name }}！欢迎回来！</h1>
+            <p>以下是你你可操作的菜单</p>
+                <div class="row center-block" style="width: 600px">
+                    <div class="list-group col-xs-4 " style="width: 200px">
+                        <a href="#" class="list-group-item active">系统管理</a>
+                        {% if request.session.user_role == '管理员' %}
+                            <a href="{% url 'user:index' %}" class="list-group-item">用户管理</a>
+                        {% endif %}
+                        <a href="{% url 'customer:index' %}" class="list-group-item">客户管理</a>
+                        <a href="{% url 'clothes:index' %}" class="list-group-item">服装管理</a>
+                    </div>
+                    <div class="list-group col-xs-4" style="width: 200px">
+                        <a href="#" class="list-group-item active">库存管理</a>
+                        <a href="{% url 'inorder:index' %}" class="list-group-item">入库单管理</a>
+                        <a href="{% url 'outorder:index' %}" class="list-group-item">出库单管理</a>
+                    </div>
+                    <div class="list-group col-xs-4" style="width: 200px">
+                        <a href="#" class="list-group-item active">辅助管理</a>
+                        <a href="{% url 'changepwd' %}" class="list-group-item">修改密码</a>
+                    </div>
+                </div>
+        {% else %}
+            <h1>你尚未登录，只能访问公开内容！</h1>
+        {% endif %}
+    </div>
+{% endblock %}

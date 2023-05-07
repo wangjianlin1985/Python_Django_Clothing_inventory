@@ -1,0 +1,34 @@
+{% extends 'base2.html' %}
+{% load staticfiles %}
+{% block title %}登录{% endblock %}
+
+{% block content %}
+    <div class="container" style="height: 600px">
+        <div class="col-md-4 col-md-offset-4">
+            <form class='form-login' action="/login/" method="post">
+                {% if msg %}
+                    <div class="alert alert-warning">{{ msg }}</div>
+                {% endif %}
+                {% csrf_token %}
+                <h2 class="text-center">欢迎登录</h2>
+                <div class="form-group">
+                    {{ login_form.username.label_tag }}
+                    {{ login_form.username }}
+                    {{ login_form.username.errors }}
+                </div>
+                <div class="form-group">
+                    {{ login_form.password.label_tag }}
+                    {{ login_form.password }}
+                    {{ login_form.password.errors }}
+                </div>
+                <div class="form-group">
+                    {{ login_form.captcha.label_tag }}
+                    {{ login_form.captcha }}
+                    {{ login_form.captcha.errors }}
+                </div>
+                <button type="reset" class="btn btn-default pull-left">重置</button>
+                <button type="submit" class="btn btn-primary pull-right">登录</button>
+            </form>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}
